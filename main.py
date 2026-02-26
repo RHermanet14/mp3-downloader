@@ -1,8 +1,10 @@
 import yt_dlp
 import tkinter as tk
 from tkinter import ttk
+import os
 
 def download_mp3(url):
+    download_folder = os.path.join(os.path.expanduser("~"), "Downloads")
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -10,7 +12,7 @@ def download_mp3(url):
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'outtmpl': '%(title)s.%(ext)s',
+        'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s'),
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
@@ -27,8 +29,8 @@ def start_window():
     label.pack(pady=20)
     
     def on_button_click():
-        label.config(text=url.get())
-        # download_mp3(url)
+        #label.config(text=url.get())
+        download_mp3(url.get())
 
     button = tk.Button(root, text="Click Me", command=on_button_click)
     button.pack(pady=10)
