@@ -1,10 +1,12 @@
 import yt_dlp
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
 import os
 
+download_folder = os.path.join(os.path.expanduser("~"), "Downloads")
+
 def download_mp3(url):
-    download_folder = os.path.join(os.path.expanduser("~"), "Downloads")
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -22,17 +24,27 @@ def start_window():
     root.title("Youtube to MP3")
     root.geometry("500x300")
 
-    url = ttk.Entry(root, width=30)
-    url.pack(pady=10)
+    top_frame = tk.Frame(root)
+    top_frame.pack(pady=10)
+
+    url = ttk.Entry(top_frame, width=30)
+    url.grid(row=0, column=0, padx=5)
+
+    def folder_button_click():
+        folder_path = filedialog.askdirectory(title="Select a folder")
+        if folder_path:
+            download_folder = folder_path
+
+    folder_button = tk.Button(top_frame, text="Select Folder", command=folder_button_click)
+    folder_button.grid(row=0, column=1)
 
     label = tk.Label(root, text="Enter in a valid Youtube URL.")
     label.pack(pady=20)
     
     def on_button_click():
-        #label.config(text=url.get())
         download_mp3(url.get())
 
-    button = tk.Button(root, text="Click Me", command=on_button_click)
+    button = tk.Button(root, text="Download", command=on_button_click)
     button.pack(pady=10)
 
     root.mainloop()
