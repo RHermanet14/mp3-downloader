@@ -33,6 +33,7 @@ def start_window():
     def folder_button_click():
         folder_path = filedialog.askdirectory(title="Select a folder")
         if folder_path:
+            global download_folder
             download_folder = folder_path
 
     folder_button = tk.Button(top_frame, text="Select Folder", command=folder_button_click)
