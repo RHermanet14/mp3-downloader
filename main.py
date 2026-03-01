@@ -24,6 +24,9 @@ def start_window():
     root.title("Youtube to MP3")
     root.geometry("500x300")
 
+    label = tk.Label(root, text="Enter in a valid Youtube URL.", font=("Arial", 16, "bold"))
+    label.pack(pady=20)
+
     top_frame = tk.Frame(root)
     top_frame.pack(pady=10)
 
@@ -36,12 +39,9 @@ def start_window():
             global download_folder
             download_folder = folder_path
 
-    folder_button = tk.Button(top_frame, text="Select Folder", command=folder_button_click)
+    folder_button = tk.Button(top_frame, text="Download Folder", command=folder_button_click)
     folder_button.grid(row=0, column=1)
 
-    label = tk.Label(root, text="Enter in a valid Youtube URL.")
-    label.pack(pady=20)
-    
     def on_button_click():
         download_mp3(url.get())
 
