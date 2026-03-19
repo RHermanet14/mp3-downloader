@@ -8,6 +8,8 @@ download_folder = os.path.join(os.path.expanduser("~"), "Downloads")
 
 def download_mp3(url):
     ydl_opts = {
+        'ignoreconfig': True,
+        'remote_components': ['ejs:github'],
         'format': 'bestaudio/best',
         'cookiesfrombrowser': ('firefox', None, None, None),
         'postprocessors': [{
